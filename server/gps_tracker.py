@@ -2,6 +2,8 @@ import os
 import socket
 import sys
 import logging
+import time
+
 
 config_file_path = "./gps_tracker.conf"
 
@@ -31,7 +33,7 @@ class GpsTrackerServer():
     def start_server(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Bind the socket to the port
-        server_address = ('', 10000)
+        server_address = ('', 10001)
         print >>sys.stderr, 'starting up on %s port %s' % server_address
         self.logger.debug('starting up on %s port %s' % server_address)
         self.sock.bind(server_address)
@@ -42,14 +44,23 @@ class GpsTrackerServer():
         # Wait for a connection
         print >>sys.stderr, 'waiting for a connection'
         self.connection, self.client_address = self.sock.accept()
+        
+        # set to nonblocking mode
+        self.connection.setblocking(0)
    
     def listen(self):
-        try:
-            print >>sys.stderr, 'connection from', self.client_address
+        print >>sys.stderr, 'connection from', self.client_address
 
-            # Receive the data in small chunks and retransmit it
-            while True:
-                data = self.connection.recv(100)
+        counter = 0
+
+        # Receive the data in small chunks and retransmit it
+        while True:
+            try:
+                time.sleep(1)
+                #if counter == 0:
+                self.connection.send("hello")
+                #counter += 1
+                data = self.connection.recv(4096)
                 print >>sys.stderr, 'received "%s"' % data
                 if data:
                     print >>sys.stderr, 'sending data back to the client'
@@ -57,10 +68,12 @@ class GpsTrackerServer():
                 else:
                     print >>sys.stderr, 'no more data from', self.client_address
                     break
-                
-        finally:
-            # Clean up the connection
-            self.connection.close()
+            except IOError:
+                print "waiting....."
+
+            except Exception:
+                self.connection.close()
+                break
 
 
     def read_config(self):

@@ -3,7 +3,7 @@ import socket
 import sys
 import logging
 import time
-
+import threading
 
 config_file_path = "./gps_tracker.conf"
 
@@ -18,7 +18,6 @@ class Config():
 
 class GpsTrackerServer():
 
-
     def __init__(self):
         self.config = Config(30)
         self.config.gps_poll_time=30
@@ -30,10 +29,10 @@ class GpsTrackerServer():
         self.logger.addHandler(fh)
 
 
-    def start_server(self):
+    def start_server(self, port=10000):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Bind the socket to the port
-        server_address = ('', 10001)
+        server_address = ('', port)
         print >>sys.stderr, 'starting up on %s port %s' % server_address
         self.logger.debug('starting up on %s port %s' % server_address)
         self.sock.bind(server_address)
@@ -47,33 +46,39 @@ class GpsTrackerServer():
         
         # set to nonblocking mode
         self.connection.setblocking(0)
-   
-    def listen(self):
-        print >>sys.stderr, 'connection from', self.client_address
 
-        counter = 0
+        self.recv_thread = threading.Thread(target=self._listen, args=(self.connection,))
+        self.send_thread = threading.Thread(target=self._send,   args=(self.connection,))
+
+        self.recv_thread.start()
+        self.send_thread.start()
+   
+    def _listen(self, connection):
+        print >>sys.stderr, 'connection from', self.client_address
 
         # Receive the data in small chunks and retransmit it
         while True:
             try:
-                time.sleep(1)
-                #if counter == 0:
-                self.connection.send("hello")
-                #counter += 1
-                data = self.connection.recv(4096)
-                print >>sys.stderr, 'received "%s"' % data
-                if data:
-                    print >>sys.stderr, 'sending data back to the client'
-                    self.connection.sendall(data)
-                else:
-                    print >>sys.stderr, 'no more data from', self.client_address
-                    break
+                data = connection.recv(4096)
+                print >>sys.stderr, "%s" % data
+            
             except IOError:
-                print "waiting....."
+                pass
 
             except Exception:
-                self.connection.close()
+                print "Other exception....."
+                connection.close()
                 break
+
+    def _send(self, connection):
+       while True:
+           try:
+               connection.sendall(raw_input() + "\n")
+
+           except Exception:
+               print "Send closing connection....."
+               connection.close()
+               break
 
 
     def read_config(self):
@@ -83,7 +88,14 @@ class GpsTrackerServer():
         pass
 
 if __name__ == "__main__":
+    from optparse import OptionParser
+ 
+    p = OptionParser()
+    p.set_usage('gps_tracker.py -p <port>')
+    p.set_description(__doc__)
+    p.add_option('-p', '--port', dest='port', type=int,
+        help='port on which to listen for client')
+    opts, args = p.parse_args(sys.argv[1:])
+ 
     tracker = GpsTrackerServer()
-    print tracker.config.gps_poll_time
-    tracker.start_server()
-    tracker.listen()
+    tracker.start_server(opts.port)

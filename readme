@@ -7,7 +7,7 @@ for logging and display on google maps.
  Project State
 -------------------------------------------------------------------------------
 Very very early days
-about 3% complete
+about 5% complete
 
 
  Hardware Requirements
@@ -16,7 +16,7 @@ about 3% complete
 2. SIM900 Shield
 3. GPS module
 4. Power supply
-5. Server
+5. Server - with static IP
 
 
  Planned Features

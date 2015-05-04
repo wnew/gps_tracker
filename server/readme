@@ -1,0 +1,15 @@
+ Description
+-------------------------------------------------------------------------------
+This is the server side code that opens a TCP connection which allows a device
+to connect to the server. It is in a very rough form at the moment but is being
+cpntinuously worked on.
+
+
+ Planned Features
+-------------------------------------------------------------------------------
+1. Support for multiple TCP connections
+2. Ability to push a new config to the device, ie poll times etc
+3. Interface the server to google maps and plot the position of the vehicle
+
+
+

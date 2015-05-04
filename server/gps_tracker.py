@@ -33,17 +33,20 @@ class GpsTrackerServer():
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # Bind the socket to the port
         server_address = ('', port)
-        print >>sys.stderr, 'starting up on %s port %s' % server_address
-        self.logger.debug('starting up on %s port %s' % server_address)
+        print >>sys.stderr, 'starting server on %s port %s' % server_address
+        self.logger.debug('starting server on %s port %s' % server_address)
         self.sock.bind(server_address)
 
         # Listen for incoming connections
         self.sock.listen(1)
 
         # Wait for a connection
-        print >>sys.stderr, 'waiting for a connection'
+        print >>sys.stderr, 'waiting for a connection...'
+        self.logger.debug('waiting for connection...')
         self.connection, self.client_address = self.sock.accept()
-        
+        #print self.client_address
+        self.logger.debug('connection from %s on port %s' % self.client_address)
+
         # set to nonblocking mode
         self.connection.setblocking(0)
 
@@ -60,13 +63,14 @@ class GpsTrackerServer():
         while True:
             try:
                 data = connection.recv(4096)
-                print >>sys.stderr, "%s" % data
+                #print >>sys.stderr, "%s" % data
+                #self.logger.debug('recieved %s' %data)
             
             except IOError:
                 pass
 
             except Exception:
-                print "Other exception....."
+                self.logger.debug('connection closed')
                 connection.close()
                 break
 

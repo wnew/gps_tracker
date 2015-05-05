@@ -25,7 +25,7 @@ void setup() {
      Serial.println("GSM Shield testing.");
      // start configuration of shield with baudrate.
      // for http uses it is recommended to use 4800 or slower.
-     if (gsm.begin(2400)) {
+     if (gsm.begin(4800)) {
           Serial.println("\nstatus=READY");
           started=true;
      } else Serial.println("\nstatus=IDLE");
@@ -42,22 +42,35 @@ void setup() {
           delay(1000);
 
           //Read IP address.
-          gsm.SimpleWriteln("AT+CIFSR");
-          delay(5000);
+          char* resp = "OK";
+          Serial.println(gsm.SendATCmdWaitResp("AT+CIFSR", 5000, 100, resp, 1));
+          Serial.println(resp);
+          Serial.println("here");
+          gsm.SendATCmdWaitResp("AT+CIPSTART=\"TCP\",\"199.175.49.10\",10000", 5000, 100, resp, 1);
+          Serial.println("here1");
+          while (1) {
+              gsm.SendATCmdWaitResp("AT+CIPSEND=3", 5000, 100, resp, 1);
+              gsm.SimpleWrite("hi\n");
+              Serial.println("sending data...");
+              delay(5000);
+          }
+
+          //gsm.SimpleWriteln("AT+CIFSR");
+          //delay(5000);
           //Read until serial buffer is empty.
-          gsm.WhileSimpleRead();
+          //gsm.WhileSimpleRead();
 
           //Connect to the server over a raw TCP connection
-          gsm.SimpleWrite("AT+CIPSTART=\"TCP\",\"");
-          gsm.SimpleWrite(server_addr);
-          gsm.SimpleWrite("\",");
-          gsm.SimpleWriteln(tcp_port);
+          //gsm.SimpleWrite("AT+CIPSTART=\"TCP\",\"");
+          //gsm.SimpleWrite(server_addr);
+          //gsm.SimpleWrite("\",");
+          //gsm.SimpleWriteln(tcp_port);
           /*while (!inet.connectTCP(server_addr, tcp_port)) {
                Serial.println("failed to connect to " + String(server_addr) + " on port " + tcp_port);
                Serial.println("Trying again in 10 seconds");
                delay(10000);
           }*/
-          Serial.println("connected to " + String(server_addr) + " on port " + tcp_port);
+          //Serial.println("connected to " + String(server_addr) + " on port " + tcp_port);
 
      }
 };
@@ -70,7 +83,7 @@ void loop() {
      //serialswread();
      //delay(1000);
      //x = random(100);
-     inet.sendRawTCPData("hello12345");
+     //inet.sendRawTCPData("hello12345");
      //gsm.SimpleWriteln("Hello");
      //Serial.println("Hello");
 };

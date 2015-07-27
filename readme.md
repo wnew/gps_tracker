@@ -34,7 +34,7 @@ about 10% complete
 <p align="left">
 <img src="http://i1235.photobucket.com/albums/ff428/sixty545/0TP4056board_zpsdb9ae434.jpg" alt="alt text" width="150"height="150">
 </p>
-6. 18650 3v7 Battery ($)
+6. 18650 3v7 Battery (<$4 or free from old laptop battery packs)
 <p align="left">
 <img src="http://i01.i.aliimg.com/photo/v0/344889611/Vector_Optics_18650_Rechargeable_Lithium_Battery.jpg" alt="alt text" width="200"height="150">
 </p>

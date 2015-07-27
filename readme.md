@@ -1,17 +1,17 @@
- Description
+Description
 -------------------------------------------------------------------------------
 Arduino based GPS vehicle tracker with python software to run on a server
 for logging and display on google maps.
 
 
- Project State
+Project State
 -------------------------------------------------------------------------------
 Early days
 Design Phase almost complete
 about 10% complete
 
 
- Hardware Requirements
+Hardware Requirements
 -------------------------------------------------------------------------------
 
 1. Arduino Pro Mini, ideally 3v3 version, although any Arduino should do. (<$3 for the pro mini)
@@ -45,8 +45,7 @@ about 10% complete
 8. Server - with static IP
 
 
-
- Planned Features
+Planned Features
 -------------------------------------------------------------------------------
 1. TCP connection between server and tracker
 2. GSM location estimation for when GPS not available

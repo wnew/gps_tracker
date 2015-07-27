@@ -13,14 +13,36 @@ about 10% complete
 
  Hardware Requirements
 -------------------------------------------------------------------------------
+
 1. Arduino Pro Mini, ideally 3v3 version, although any Arduino should do.
-![alt tag](http://tse1.mm.bing.net/th?&id=OIP.M298bc4999b4f5b87f9d0e45927128047o0&w=300&h=300&c=0&pid=1.9&rs=0&p=0)
+<p align="left">
+<img src="https://cdn.sparkfun.com/assets/f/4/e/2/7/51eeb8f9ce395f0778000000.png" alt="alt text" width="150"height="150">
+</p>
 2. SIM800/SIM900/SIM908 GPRS Module/Shield
-![alt tag](http://tse2.mm.bing.net/th?id=OIP.Me3951c45a46e26ad3f973eb998e21631o0&pid=15.1)
+<p align="left">
+<img src="http://img.dxcdn.com/productimages/sku_382445_1.jpg" alt="alt text" width="150"height="150">
+</p>
 3. GPS Module, anything based on the NEO 6M
-![alt tag](http://tse1.mm.bing.net/th?id=OIP.M7d3a3fae543106df7d335a36a1936163o0&pid=15.1)
-4. Power supply
-5. Server - with static IP
+<p align="left">
+<img src="http://www.digibay.in/image/cache/data/se/432-a-ublox-neo-6m-gps-module-with-active-antenna-600x600.jpg" alt="alt text" width="150"height="150">
+</p>
+4. 12v - 5v Buck Converter, at least 1Amp
+<p align="left">
+<img src="http://i01.i.aliimg.com/wsphoto/v0/500383839/DC-Buck-Converter-12V-24V-to-5V-8A-Step-Down-Car-Power-Supply-Waterproof-Module-090592.jpg" alt="alt text" width="150"height="150">
+</p>
+5. TP LiIon Charger
+<p align="left">
+<img src="http://i1235.photobucket.com/albums/ff428/sixty545/0TP4056board_zpsdb9ae434.jpg" alt="alt text" width="150"height="150">
+</p>
+6. 18650 3v7 Battery
+<p align="left">
+<img src="http://i01.i.aliimg.com/photo/v0/344889611/Vector_Optics_18650_Rechargeable_Lithium_Battery.jpg" alt="alt text" width="200"height="150">
+</p>
+7. 18650 Battery holder
+<p align="left">
+<img src="http://img.fasttechcdn.com/119/1191501/1191501-1.jpg" alt="alt text" width="250"height="150">
+</p>
+8. Server - with static IP
 
 
 

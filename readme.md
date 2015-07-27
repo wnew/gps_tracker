@@ -1,9 +1,26 @@
+#Open GPS Tracker
+
 ##Description
 
 Arduino based GPS vehicle tracker with python software to run on a server
 for logging and display on google maps.
 
+##Planned Features
 
+1. TCP connection between server and tracker
+2. GSM location estimation for when GPS not available
+3. Interface the server to google maps and plot the position of the vehicle
+4. Battery Backup
+
+##Project State
+
+Early days  
+Design Phase almost complete  
+about 10% complete  
+
+
+
+#Requirements
 ##Hardware Requirements
 
 1. Arduino Pro Mini, ideally 3v3 version, although any Arduino should do. (<$3 for the pro mini)
@@ -34,20 +51,65 @@ for logging and display on google maps.
 <p align="left">
 <img src="http://img.fasttechcdn.com/119/1191501/1191501-1.jpg" alt="alt text" width="250"height="150">
 </p>
-8. Server - with static IP
+8. Sim Card
+<p align="left">
+<img src="http://www.diygadget.com/media/catalog/product/cache/3/image/9df78eab33525d08d6e5fb8d27136e95/i/p/iphone-activation-card-600.jpg" alt="alt text" width="150"height="150">
+</p>
+9. Server - with static IP
+
+##Device Hardware
+
+The arduino controls the device, it is connected via serial to both the GPS and GPRS modules. It reads the GPS data off the GPS module and sends it to the server via the GPRS connection.
+
+##Power Supply
+
+Power supply, must be able to supply 500mA at 3v7. It is recommended to use a 18650 Lithium Ion battery.
+The battery can be charged with a TP4056 which has in input voltage of up to 8v. So a buck convert from 12-5v is recommended.
 
 
-##Planned Features
+##Device Firmware
 
-1. TCP connection between server and tracker
-2. GSM location estimation for when GPS not available
-3. Interface the server to google maps and plot the position of the vehicle
-4. Battery Backup
+Control and configure GPS
+Interface with server over GPRS TCP connection
+Store a configuration which can be changed from the server-side.
 
-##Project State
 
-Early days  
-Design Phase almost complete  
-about 10% complete  
+##Server-Side Device Management Software
+
+Connect to device
+Receive data from the device
+Send configuration to the device
+Log all activity to files
+Store a configuration file per device
+Manage multiple devices
+
+
+##Server-Side Mapping Software
+
+Take the log file from the Device Manager and map it onto a map framework
+A user must be able to browse to a particular address and see his device locations
+
+
+##Interfaces
+
+###Device to Server
+
+- The server will listen for a TCP connection from the device.
+- The device will send periodically send the location data to the server as it is configured.
+- The server will store a configuration file and if requested to do so can send it to the device.
+
+
+###Server Software to Mapping Software
+
+This interface consists of a location log file produced by the server-side software managing the device. The mapping software takes this file, parses it and overlays it onto a mapping framework.
+
+
+
+
+
+
+
+
+
 
 
